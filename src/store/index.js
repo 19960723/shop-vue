@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const state = {
   // 是否授权
   isAuthenticated: false,
-  userInfo: ''
+  userInfo: '',
+  geohash: '31.22299,121.36025' // 地址geohash值
 }
 
 export default new Vuex.Store({

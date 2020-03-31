@@ -47,156 +47,32 @@
 </template>
 
 <script>
+import getData from '@/service/getData'
 import ratingStar from './ratingStar'
 export default {
   data () {
     return {
-      shopListArr: [
-        {
-          id: 1,
-          name: '效果演示',
-          recent_order_num: 106,
-          rating_count: 961,
-          rating: 4.7,
-          image_path: '164ad0b6a3917599.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '1383.8公里',
-          order_lead_time: '14小时45分钟'
-        },
-        {
-          id: 2,
-          name: '黄焖鸡',
-          recent_order_num: 100,
-          rating_count: 961,
-          rating: 5,
-          image_path: '170f121ca2e65129.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '1715.8公里',
-          order_lead_time: '18小时12分钟'
-        },
-        {
-          id: 3,
-          name: '片皮鸭',
-          recent_order_num: 831,
-          rating_count: 961,
-          rating: 4.1,
-          image_path: '17105dc029965264.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '826.8公里',
-          order_lead_time: '8小时57分钟'
-        },
-        {
-          id: 4,
-          name: '周麻婆',
-          recent_order_num: 601,
-          rating_count: 961,
-          rating: 4.3,
-          image_path: '170dc76197f65002.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 2,
-          distance: '126.8公里',
-          order_lead_time: '1小时57分钟'
-        },
-        {
-          id: 5,
-          name: '一粥七天1',
-          recent_order_num: 831,
-          rating_count: 961,
-          rating: 4.1,
-          image_path: '16fc1791d8663342.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '826.8公里',
-          order_lead_time: '8小时57分钟'
-        },
-        {
-          id: 6,
-          name: '寿司工坊E',
-          recent_order_num: 601,
-          rating_count: 961,
-          rating: 4.3,
-          image_path: '16e2f78904857599.png',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 2,
-          distance: '126.8公里',
-          order_lead_time: '1小时57分钟'
-        },
-        {
-          id: 7,
-          name: '效果演示',
-          recent_order_num: 106,
-          rating_count: 961,
-          rating: 4.7,
-          image_path: '164ad0b6a3917599.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '1383.8公里',
-          order_lead_time: '14小时45分钟'
-        },
-        {
-          id: 8,
-          name: '黄焖鸡',
-          recent_order_num: 100,
-          rating_count: 961,
-          rating: 5,
-          image_path: '170f121ca2e65129.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '1715.8公里',
-          order_lead_time: '18小时12分钟'
-        },
-        {
-          id: 9,
-          name: '片皮鸭',
-          recent_order_num: 831,
-          rating_count: 961,
-          rating: 4.1,
-          image_path: '17105dc029965264.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '826.8公里',
-          order_lead_time: '8小时57分钟'
-        },
-        {
-          id: 10,
-          name: '周麻婆',
-          recent_order_num: 601,
-          rating_count: 961,
-          rating: 4.3,
-          image_path: '170dc76197f65002.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 2,
-          distance: '126.8公里',
-          order_lead_time: '1小时57分钟'
-        },
-        {
-          id: 11,
-          name: '一粥七天1',
-          recent_order_num: 831,
-          rating_count: 961,
-          rating: 4.1,
-          image_path: '16fc1791d8663342.jpg',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 5,
-          distance: '826.8公里',
-          order_lead_time: '8小时57分钟'
-        },
-        {
-          id: 12,
-          name: '寿司工坊E',
-          recent_order_num: 601,
-          rating_count: 961,
-          rating: 4.3,
-          image_path: '16e2f78904857599.png',
-          float_minimum_order_amount: 20,
-          float_delivery_fee: 2,
-          distance: '126.8公里',
-          order_lead_time: '1小时57分钟'
+      latitude: '31.22299',
+      longitude: '121.36025',
+      offset: 0,
+      touchend: false, // 没有更多数据
+      restaurantCategoryId: '',
+      shopListArr: []
+    }
+  },
+  props: ['sortStr'],
+  mounted () {
+    getData.shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId)
+      .then(res => {
+        this.shopListArr = res.data
+        if (res.data.length < 20) {
+          this.touchend = true
         }
-      ]
+      })
+  },
+  methods: {
+    handle () {
+      console.log(this.sortStr)
     }
   },
   components: {

@@ -8,6 +8,7 @@ import Mine from '../view/Mine/Mine.vue'
 import Search from '../view/Search/Search.vue'
 import Shop from '../view/Shop/Shop.vue'
 import Food from '../view/Food/Food.vue'
+import Test from '../view/Test/Test.vue'
 
 export default [
   {
@@ -63,5 +64,10 @@ export default [
     path: '/food',
     name: 'food',
     component: Food
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: Test
   }
 ]
